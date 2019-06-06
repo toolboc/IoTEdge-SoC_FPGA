@@ -1,0 +1,58 @@
+FROM ubuntu:xenial AS SoCEDS-env
+
+MAINTAINER Paul DeCarlo (toolboc)
+
+ARG SoCEDS_MIRROR=http://download.altera.com/akdlm/software/acdsinst/18.1std/625/ib_installers/
+ARG SoCEDS_Installer=SoCEDSSetup-18.1.0.625-linux.run
+ARG SoCEDS_Install_Path=/opt/intelFPGA_lite/18.1
+
+RUN apt-get update && \
+    apt-get install -y \
+    wget \
+    bsdtar \
+    make \
+    gcc-arm-linux-gnueabihf \
+    lib32z1 \
+    lib32stdc++6
+
+#SoCEDS installation
+RUN cd /tmp && wget -q $SoCEDS_MIRROR$SoCEDS_Installer && \
+    chmod +x /tmp/$SoCEDS_Installer && \
+    /tmp/$SoCEDS_Installer --mode unattended \
+    --accept_eula 1 \
+    --installdir $SoCEDS_Install_Path && \
+    rm /tmp/* -rf 
+
+#ds-5 installation
+RUN $SoCEDS_Install_Path/embedded/ds-5_installer/install.sh \
+    --i-agree-to-the-contained-eula \
+    --destination $SoCEDS_Install_Path/embedded/ds-5 \
+    --tar /usr/bin/bsdtar 
+
+#Build de10nano_fpga_linux_config
+WORKDIR /de10nano_fpga_linux_config
+COPY de10nano_fpga_linux_config ./
+RUN bash $SoCEDS_Install_Path/embedded/embedded_command_shell.sh make
+
+FROM arm32v7/ubuntu:xenial AS base
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends software-properties-common && \
+    add-apt-repository -y ppa:aziotsdklinux/ppa-azureiot && \
+    apt-get update && \
+    apt-get install -y azure-iot-sdk-c-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+FROM base AS build-env
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends cmake gcc g++ make && \
+    rm -rf /var/lib/apt/lists/* 
+WORKDIR /app
+COPY . ./
+RUN cmake . 
+RUN make
+
+FROM base
+WORKDIR /app
+COPY --from=SoCEDS-env /de10nano_fpga_linux_config ./de10nano_fpga_linux_config
+COPY --from=build-env /app ./
+CMD ["./main"]
