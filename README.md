@@ -1,6 +1,8 @@
 # IoTEdge-SoC_FPGA
 [Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=IoTEdge-SoC_FPGA-github-pdecarlo) Module for controlling an [Intel® Cyclone® V SoC FPGA](https://www.intel.com/content/www/us/en/products/programmable/fpga/cyclone-v.html)
 
+![Diagram](https://dmtyylqvwgyxw.cloudfront.net/instances/132/uploads/images/custom_image/image/40663/normal_blob?v=1559928208)
+
 ## Purpose
 To enable cloud deployment of FPGA configurations via Raw Binary Files (.rbf) to remote devices.
 
