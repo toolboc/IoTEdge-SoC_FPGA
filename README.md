@@ -6,6 +6,10 @@
 ## Purpose
 To enable cloud deployment of FPGA configurations via Raw Binary Files (.rbf) to remote devices.
 
+## Video Demonstration
+
+[![IoTEdge SoC FPGA Demonstration](https://img.youtube.com/vi/puXh0V_DZ4Y/0.jpg)](https://www.youtube.com/watch?v=puXh0V_DZ4Y)
+
 ## Supported Devices
 * [Terasic De10-Nano](http://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1046)
 
