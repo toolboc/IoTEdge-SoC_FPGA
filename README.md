@@ -1,5 +1,5 @@
 # IoTEdge-SoC_FPGA
-An example of controlling an an [Intel® Cyclone® V SoC FPGA](https://www.intel.com/content/www/us/en/products/programmable/fpga/cyclone-v.html) from an [Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=RetroArchAIwithIoTEdge-github-pdecarlo) Module
+[Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=IoTEdge-SoC_FPGA-github-pdecarlo) Module for controlling an [Intel® Cyclone® V SoC FPGA](https://www.intel.com/content/www/us/en/products/programmable/fpga/cyclone-v.html)
 
 ## Purpose
 To enable cloud deployment of FPGA configurations via Raw Binary Files (.rbf) to remote devices.
@@ -10,7 +10,7 @@ To enable cloud deployment of FPGA configurations via Raw Binary Files (.rbf) to
 (Note: porting to other Cyclone V enabled hardware should be straightforwad but is not guaranteed)
 
 ## How it works
-[Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=RetroArchAIwithIoTEdge-github-pdecarlo) enables developers to deploy containerized modules to internet connected devices which allows for maintaing a desired state of running services through cloud-configured deployment configurations.  This mechanism also offers the ability to securely update running modules on devices remotely via changes to this configuration.  
+[Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=IoTEdge-SoC_FPGA-github-pdecarlo) enables developers to deploy containerized modules to internet connected devices which allows for maintaining a desired state of running services through cloud-configured deployment configurations.  This mechanism also offers the ability to securely update running modules on devices remotely via changes to this configuration.  
 
  This IoT Edge module leverages work from [@nhasbun](https://github.com/nhasbun/de10nano_fpga_linux_config) to configure the FPGA portion of the Cyclone V SoC from Linux within an Iot Edge module, allowing for a robust deployment mechanism for shipping FPGA configurations to remote devices at scale.
 
@@ -215,3 +215,36 @@ Create a deployment for the IoT Edge device by right-clicking `deployment.templa
 The project ships with an .rbf file (fpga_config_file.rbf) that acts as a basic XOR gate using the physical switches on the DE10-Nano.  When SW0 or SW1 are exclusively switched on, an onboard LED will light up.  If you are curious how this .rbf was created, you may refer to this [tutorial](http://hamblen.ece.gatech.edu/DE2/DE2_tutorials/tut_quartus_intro_vhdl.pdf).
 
 To deploy your own .rbf, edit the `DE10Nano_RBF_Loader/module.json` to point to a docker repostory that you control, next overwrite the existing fpga_config_file.rbf with your intended .rbf file, then right-click `deployment.template.json` and select `Build and Push IoT Edge Solution`. This will update the deployment file under the config folder named `deployment.arm32v7.json`, right-click that file and select `Create Deployment for Single Device` then select the registered device in your IoT Hub which represents the DE10-Nano device.  Once the IoT Edge deployment completes, your .rbf will load into the FPGA on the target device.
+
+You can confirm that the FPGA has been configured by running:
+
+`sudo iotedge logs DE10Nano_RBF_Loader`
+
+This should produce output similar to the following: 
+```
+******************************************************
+MSEL Pin Config..... 0xa
+FPGA State.......... Powered Off
+cfgwdth Register.... 0x1
+cdratio Register.... 0x0
+axicfgen Register... 0x0
+Nconfig pull reg.... 0x0
+CONF DONE........... 0x0
+Ctrl.en?............ 0x0
+******************************************************
+Turning FPGA Off.
+Setting cdratio with 0x3.
+Turning FPGA On.
+Loading rbf file.
+EOF reached.
+******************************************************
+MSEL Pin Config..... 0xa
+FPGA State.......... User Phase
+cfgwdth Register.... 0x1
+cdratio Register.... 0x3
+axicfgen Register... 0x0
+Nconfig pull reg.... 0x0
+CONF DONE........... 0x0
+Ctrl.en?............ 0x0
+******************************************************
+```
