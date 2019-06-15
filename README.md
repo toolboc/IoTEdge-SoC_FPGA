@@ -1,5 +1,5 @@
 # IoTEdge-SoC_FPGA
-[Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=IoTEdge-SoC_FPGA-github-pdecarlo) Module for controlling an [Intel® Cyclone® V SoC FPGA](https://www.intel.com/content/www/us/en/products/programmable/fpga/cyclone-v.html)
+[Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=IoTEdge_SoC_FPGA-github-pdecarlo) Module for controlling an [Intel® Cyclone® V SoC FPGA](https://www.intel.com/content/www/us/en/products/programmable/fpga/cyclone-v.html)
 
 ![Diagram](https://dmtyylqvwgyxw.cloudfront.net/instances/132/uploads/images/custom_image/image/40663/normal_blob?v=1559928208)
 
@@ -16,7 +16,7 @@ To enable cloud deployment of FPGA configurations via Raw Binary Files (.rbf) to
 (Note: porting to other Cyclone V enabled hardware should be straightforwad but is not guaranteed)
 
 ## How it works
-[Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=IoTEdge-SoC_FPGA-github-pdecarlo) enables developers to deploy containerized modules to internet connected devices which allows for maintaining a desired state of running services through cloud-configured deployment configurations.  This mechanism also offers the ability to securely update running modules on devices remotely via changes to this configuration.  
+[Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=IoTEdge_SoC_FPGA-github-pdecarlo) enables developers to deploy containerized modules to internet connected devices which allows for maintaining a desired state of running services through cloud-configured deployment configurations.  This mechanism also offers the ability to securely update running modules on devices remotely via changes to this configuration.  
 
  This IoT Edge module leverages work from [@nhasbun](https://github.com/nhasbun/de10nano_fpga_linux_config) to configure the FPGA portion of the Cyclone V SoC from Linux within an Iot Edge module, allowing for a robust deployment mechanism for shipping FPGA configurations to remote devices at scale.
 
