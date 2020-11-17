@@ -1,5 +1,5 @@
 # IoTEdge-SoC_FPGA
-[Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=IoTEdge_SoC_FPGA-github-pdecarlo) Module for controlling an [Intel® Cyclone® V SoC FPGA](https://www.intel.com/content/www/us/en/products/programmable/fpga/cyclone-v.html)
+[Azure IoT Edge](https://docs.microsoft.com/azure/iot-edge/?WT.mc_id=iot-0000-pdecarlo) Module for controlling an [Intel® Cyclone® V SoC FPGA](https://www.intel.com/content/www/us/en/products/programmable/fpga/cyclone-v.html)
 
 ![Diagram](https://dmtyylqvwgyxw.cloudfront.net/instances/132/uploads/images/custom_image/image/40663/normal_blob?v=1559928208)
 
@@ -16,7 +16,7 @@ To enable cloud deployment of FPGA configurations via Raw Binary Files (.rbf) to
 (Note: porting to other Cyclone V enabled hardware should be straightforwad but is not guaranteed)
 
 ## How it works
-[Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/?wt.mc_id=IoTEdge_SoC_FPGA-github-pdecarlo) enables developers to deploy containerized modules to internet connected devices which allows for maintaining a desired state of running services through cloud-configured deployment configurations.  This mechanism also offers the ability to securely update running modules on devices remotely via changes to this configuration.  
+[Azure IoT Edge](https://docs.microsoft.com/azure/iot-edge/?WT.mc_id=iot-0000-pdecarlo) enables developers to deploy containerized modules to internet connected devices which allows for maintaining a desired state of running services through cloud-configured deployment configurations.  This mechanism also offers the ability to securely update running modules on devices remotely via changes to this configuration.  
 
  This IoT Edge module leverages work from [@nhasbun](https://github.com/nhasbun/de10nano_fpga_linux_config) to configure the FPGA portion of the Cyclone V SoC from Linux within an Iot Edge module, allowing for a robust deployment mechanism for shipping FPGA configurations to remote devices at scale.
 
@@ -201,7 +201,7 @@ sudo ln -s /usr/lib/arm-linux-gnueabihf/libcrypto.so.1.0.0 /lib/arm-linux-gnueab
 
 sudo ln -s /usr/lib/arm-linux-gnueabihf/libssl.so.1.0.0 /lib/arm-linux-gnueabihf/libssl.so.1.0.2
 ```
-Next, follow these [steps](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm#option-1-manual-provisioning) to manually configure IoT Edge to connect to your Azure IoT Hub.
+Next, follow these [steps](https://docs.microsoft.com/azure/iot-edge/how-to-install-iot-edge-linux-arm?WT.mc_id=iot-0000-pdecarlo#option-1-manual-provisioning) to manually configure IoT Edge to connect to your Azure IoT Hub.
 
 Once you have completed these steps, verify that the iotedge service has started successfully with:
 
@@ -212,8 +212,8 @@ sudo systemctl status iotedge
 ## Deploy the DE10Nano_RBF_Loader Module
 
 Requirements:
-* [Visual Studio Code](https://code.visualstudio.com/)
-* [Azure IoT Edge Extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-edge?wt.mc_id=RetroArchAIwithIoTEdge-github-pdecarlo)
+* [Visual Studio Code](https://code.visualstudio.com/?WT.mc_id=iot-0000-pdecarlo)
+* [Azure IoT Edge Extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-edge%3Fwt.mc_id%3DRetroArchAIwithIoTEdge-github-pdecarlo&WT.mc_id=iot-0000-pdecarlo)
 
 
 Create a deployment for the IoT Edge device by right-clicking `deployment.template.json` and select `Generate IoT Edge Deployment Manifest`.  This will create a file under the config folder named `deployment.arm32v7.json`, right-click that file and select `Create Deployment for Single Device` then select the registered device in your IoT Hub which represents the DE10-Nano device.
